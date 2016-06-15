@@ -11,7 +11,7 @@ import android.util.Log;
  * This class performs a lot of the grunt work for handling managed tasks on the UI thread
  * The progress is displayed in a dialog
  */
-public class GenericTaskWatcher implements ManagedTask.OnFinishedListener, ManagedTask.OnProgressListener, ManagedTask.OnStartListener, DialogInterface.OnCancelListener, ManagedTask.OnIdChangedListener {
+public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, ManagedTask.OnTaskProgressListener, ManagedTask.OnTaskStartListener, DialogInterface.OnCancelListener, ManagedTask.OnTaskIdChangedListener {
 
     private final Context mContext;
     private final int mTitleRes;
