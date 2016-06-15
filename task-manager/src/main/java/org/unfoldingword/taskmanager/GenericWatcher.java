@@ -11,7 +11,7 @@ import android.util.Log;
  * This class performs a lot of the grunt work for handling managed tasks on the UI thread
  * The progress is displayed in a dialog
  */
-public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, ManagedTask.OnTaskProgressListener, ManagedTask.OnTaskStartListener, DialogInterface.OnCancelListener, ManagedTask.OnTaskIdChangedListener {
+public class GenericWatcher implements ManagedTask.OnFinishedListener, ManagedTask.OnProgressListener, ManagedTask.OnStartListener, DialogInterface.OnCancelListener, ManagedTask.OnIdChangedListener {
 
     private final Context mContext;
     private final int mTitleRes;
@@ -27,7 +27,7 @@ public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, M
      * @param context
      * @param titleRes
      */
-    public GenericTaskWatcher(Context context, int titleRes) {
+    public GenericWatcher(Context context, int titleRes) {
         mContext = context;
         mTitleRes = titleRes;
         mIconRes = 0;
@@ -39,7 +39,7 @@ public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, M
      * @param titleRes
      * @param iconRes
      */
-    public GenericTaskWatcher(Context context, int titleRes, int iconRes) {
+    public GenericWatcher(Context context, int titleRes, int iconRes) {
         mContext = context;
         mTitleRes = titleRes;
         mIconRes = iconRes;
@@ -145,7 +145,7 @@ public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, M
     }
 
     @Override
-    public void onFinished(final ManagedTask task) {
+    public void onTaskFinished(final ManagedTask task) {
         TaskManager.clearTask(task);
         Handler hand = new Handler(Looper.getMainLooper());
         hand.post(new Runnable() {
@@ -162,7 +162,7 @@ public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, M
     }
 
     @Override
-    public void onProgress(final ManagedTask task, final double progress, final String message, boolean secondary) {
+    public void onTaskProgress(final ManagedTask task, final double progress, final String message, boolean secondary) {
         if(!task.isFinished()) {
             Handler hand = new Handler(Looper.getMainLooper());
             hand.post(new Runnable() {
@@ -179,7 +179,7 @@ public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, M
                         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                         if(mOnCanceledListener != null) {
                             mProgressDialog.setCancelable(true);
-                            mProgressDialog.setOnCancelListener(GenericTaskWatcher.this);
+                            mProgressDialog.setOnCancelListener(GenericWatcher.this);
                         } else {
                             mProgressDialog.setCancelable(false);
                         }
@@ -212,7 +212,7 @@ public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, M
     }
 
     @Override
-    public void onStart(ManagedTask task) {
+    public void onTaskStart(ManagedTask task) {
         // This is a stub. This isn't used anywhere yet
     }
 
@@ -235,7 +235,7 @@ public class GenericTaskWatcher implements ManagedTask.OnTaskFinishedListener, M
      * @param task
      */
     @Override
-    public void onChanged(ManagedTask task) {
+    public void onTaskChanged(ManagedTask task) {
         mTaskId = task.getTaskId();
     }
 

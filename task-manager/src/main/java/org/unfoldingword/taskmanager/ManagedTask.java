@@ -65,10 +65,10 @@ public abstract class ManagedTask implements Runnable {
             }
             mIsRunning = true;
             synchronized (mStartListeners) {
-                Iterator<OnTaskStartListener> it = mStartListeners.iterator();
+                Iterator<OnStartListener> it = mStartListeners.iterator();
                 while(it.hasNext()) {
                     try {
-                        it.next().onStart(this);
+                        it.next().onTaskStart(this);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -85,10 +85,10 @@ public abstract class ManagedTask implements Runnable {
         mIsRunning = false;
         mFinished = true;
         synchronized (mFinishListeners) {
-            Iterator<OnTaskFinishedListener> it = mFinishListeners.iterator();
+            Iterator<OnFinishedListener> it = mFinishListeners.iterator();
             while(it.hasNext()) {
                 try {
-                    it.next().onFinished(this);
+                    it.next().onTaskFinished(this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -134,7 +134,7 @@ public abstract class ManagedTask implements Runnable {
      */
     protected final void delegate(ManagedTask task) {
         synchronized (mProgressListeners) {
-            Iterator<OnTaskProgressListener> it = mProgressListeners.iterator();
+            Iterator<OnProgressListener> it = mProgressListeners.iterator();
             while(it.hasNext()) {
                 task.addOnProgressListener(it.next());
             }
@@ -149,10 +149,10 @@ public abstract class ManagedTask implements Runnable {
     public final void setTaskId(Object id) {
         mTaskId = id;
         synchronized (mOnIdChangedListeners) {
-            Iterator<OnTaskIdChangedListener> it = mOnIdChangedListeners.iterator();
+            Iterator<OnIdChangedListener> it = mOnIdChangedListeners.iterator();
             while(it.hasNext()) {
                 try {
-                    it.next().onChanged(this);
+                    it.next().onTaskChanged(this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -191,10 +191,10 @@ public abstract class ManagedTask implements Runnable {
         }
         if(!isFinished()) {
             synchronized (mProgressListeners) {
-                Iterator<OnTaskProgressListener> it = mProgressListeners.iterator();
+                Iterator<OnProgressListener> it = mProgressListeners.iterator();
                 while(it.hasNext()) {
                     try {
-                        it.next().onProgress(this, progress, message, secondary);
+                        it.next().onTaskProgress(this, progress, message, secondary);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -207,12 +207,12 @@ public abstract class ManagedTask implements Runnable {
      * Sets the listener to be called on progress updates
      * @param listener
      */
-    public final void addOnProgressListener(OnTaskProgressListener listener) {
+    public final void addOnProgressListener(OnProgressListener listener) {
         if(!mProgressListeners.contains(listener) && listener != null) {
             mProgressListeners.add(listener);
             if(!isFinished()) {
                 try {
-                    listener.onProgress(this, mProgress, mProgressMessage, false);
+                    listener.onTaskProgress(this, mProgress, mProgressMessage, false);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -226,11 +226,11 @@ public abstract class ManagedTask implements Runnable {
      * loaded into the task manager
      * @param listener
      */
-    public final void addOnIdChangedListener(OnTaskIdChangedListener listener) {
+    public final void addOnIdChangedListener(OnIdChangedListener listener) {
         if(!mOnIdChangedListeners.contains(listener) && listener != null) {
             mOnIdChangedListeners.add(listener);
             try {
-                listener.onChanged(this);
+                listener.onTaskChanged(this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -241,7 +241,7 @@ public abstract class ManagedTask implements Runnable {
      * Removes the on id changed listener
      * @param listener
      */
-    public final void removeOnIdChangedListener(OnTaskIdChangedListener listener) {
+    public final void removeOnIdChangedListener(OnIdChangedListener listener) {
         mOnIdChangedListeners.remove(listener);
     }
 
@@ -256,7 +256,7 @@ public abstract class ManagedTask implements Runnable {
      * Removes the on progress listener
      * @param listener
      */
-    public final void removeOnProgressListener(OnTaskProgressListener listener) {
+    public final void removeOnProgressListener(OnProgressListener listener) {
         if(listener != null) {
             mProgressListeners.remove(listener);
         }
@@ -273,12 +273,12 @@ public abstract class ManagedTask implements Runnable {
      * Sets the listener to be called when the task is finished
      * @param listener
      */
-    public final void addOnFinishedListener(OnTaskFinishedListener listener) {
+    public final void addOnFinishedListener(OnFinishedListener listener) {
         if(!mFinishListeners.contains(listener) && listener != null) {
             mFinishListeners.add(listener);
             if (isFinished()) {
                 try {
-                    listener.onFinished(this);
+                    listener.onTaskFinished(this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -290,7 +290,7 @@ public abstract class ManagedTask implements Runnable {
      * Removes the on finished listener
      * @param listener
      */
-    public final void removeOnFinishedListener(OnTaskFinishedListener listener) {
+    public final void removeOnFinishedListener(OnFinishedListener listener) {
         if(listener != null) {
             mFinishListeners.remove(listener);
         }
@@ -307,7 +307,7 @@ public abstract class ManagedTask implements Runnable {
      * Sets the listener to be called when the task starts
      * @param listener
      */
-    public final void addOnStartListener(OnTaskStartListener listener) {
+    public final void addOnStartListener(OnStartListener listener) {
         if(!mStartListeners.contains(listener) && listener != null) {
             mStartListeners.add(listener);
         }
@@ -317,7 +317,7 @@ public abstract class ManagedTask implements Runnable {
      * Removes the on start listener
      * @param listener
      */
-    public final void removeOnStartListener(OnTaskStartListener listener) {
+    public final void removeOnStartListener(OnStartListener listener) {
         mStartListeners.remove(listener);
     }
 
@@ -412,19 +412,19 @@ public abstract class ManagedTask implements Runnable {
         }
     }
 
-    public interface OnTaskFinishedListener {
-        void onFinished(ManagedTask task);
+    public interface OnFinishedListener {
+        void onTaskFinished(ManagedTask task);
     }
 
-    public interface OnTaskProgressListener {
-        void onProgress(ManagedTask task, double progress, String message, boolean secondary);
+    public interface OnProgressListener {
+        void onTaskProgress(ManagedTask task, double progress, String message, boolean secondary);
     }
 
-    public interface OnTaskStartListener {
-        void onStart(ManagedTask task);
+    public interface OnStartListener {
+        void onTaskStart(ManagedTask task);
     }
 
-    public interface OnTaskIdChangedListener {
-        void onChanged(ManagedTask task);
+    public interface OnIdChangedListener {
+        void onTaskChanged(ManagedTask task);
     }
 }
