@@ -106,13 +106,12 @@ public abstract class ManagedTask implements Runnable {
     /**
      * Causes the task to sleep
      * @param time The time to sleep in milliseconds.
-     * @throws InterruptedException
      */
     protected final void sleep(long time) {
         try {
             mThread.sleep(time);
         } catch (InterruptedException e) {
-
+            e.printStackTrace();
         } finally {
             // clear the thread's interrupt flag
             Thread.interrupted();
