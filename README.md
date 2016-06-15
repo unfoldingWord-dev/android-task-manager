@@ -1,9 +1,17 @@
-Task Manager
----
+#Task Manager
+A library for sanely performing threaded tasks that are accessible from the UI thread.
 
 The task manager provides a way for an application to perform certain tasks that need to be kept
 track of without breaking the ui. When you queue a task you receive a task id (or you can provide your own) that can be used
 to check up on the task at a later time, in a different thread, or in a different activity.
+
+##Installation
+To use this library your Android project must be configured to use the JCenter or Maven Central repositories.
+
+Add the following to your package dependencies and sync gradle.
+```
+compile 'org.unfoldingword.tools:task-manager:1.0.0'
+```
 
 ##Example Usage
 Here is a popular way to use the task manager.
