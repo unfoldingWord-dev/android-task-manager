@@ -1,4 +1,4 @@
-package org.unfoldingword.taskmanager;
+package org.unfoldingword.tools.taskmanager;
 
 import android.content.Context;
 import android.os.Handler;
@@ -6,7 +6,7 @@ import android.os.Handler;
 /**
  * This class allows you to execute operations in a seperate thread and then finish up by running some code on the ui thread
  * Note: you should probably almost always use the new task manager
- * @deprecated you should use the TaskManager instead
+ * @deprecated use ManagedTask instead
  */
 @Deprecated
 public abstract class ThreadableUI {

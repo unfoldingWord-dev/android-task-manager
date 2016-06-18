@@ -1,4 +1,4 @@
-package org.unfoldingword.taskmanager;
+package org.unfoldingword.tools.taskmanager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
