@@ -10,7 +10,7 @@ To use this library your Android project must be configured to use the JCenter o
 
 Add the following to your package dependencies and sync gradle.
 ```
-compile 'org.unfoldingword.tools:task-manager:1.0.0'
+compile 'org.unfoldingword.tools:task-manager:1.5.0'
 ```
 
 ##Example Usage
