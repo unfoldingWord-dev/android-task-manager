@@ -235,7 +235,7 @@ public class SimpleTaskWatcher implements ManagedTask.OnFinishedListener, Manage
      * @param task
      */
     @Override
-    public void onTaskChanged(ManagedTask task) {
+    public void onTaskIdChanged(ManagedTask task) {
         mTaskId = task.getTaskId();
     }
 

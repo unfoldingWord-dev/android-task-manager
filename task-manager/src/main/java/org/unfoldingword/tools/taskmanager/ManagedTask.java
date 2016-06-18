@@ -153,7 +153,7 @@ public abstract class ManagedTask implements Runnable {
             Iterator<OnIdChangedListener> it = mOnIdChangedListeners.iterator();
             while(it.hasNext()) {
                 try {
-                    it.next().onTaskChanged(this);
+                    it.next().onTaskIdChanged(this);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -231,7 +231,7 @@ public abstract class ManagedTask implements Runnable {
         if(!mOnIdChangedListeners.contains(listener) && listener != null) {
             mOnIdChangedListeners.add(listener);
             try {
-                listener.onTaskChanged(this);
+                listener.onTaskIdChanged(this);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -444,6 +444,6 @@ public abstract class ManagedTask implements Runnable {
     }
 
     public interface OnIdChangedListener {
-        void onTaskChanged(ManagedTask task);
+        void onTaskIdChanged(ManagedTask task);
     }
 }
