@@ -26,6 +26,7 @@ public abstract class ManagedTask implements Runnable {
     private List mOnIdChangedListeners = Collections.synchronizedList(new ArrayList<>());
     protected int mThreadPriority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
     private Bundle mArgs = null;
+    private Object result = null;
 
     public ManagedTask ManagedTask() {
         return this;
@@ -410,6 +411,24 @@ public abstract class ManagedTask implements Runnable {
         } else {
             return mIsStopped;
         }
+    }
+
+    /**
+     * Sets the result of the task.
+     * You can create your own getters, however this is especially helpful when creating
+     * anonymous tasks.
+     * @param result
+     */
+    public void setResult(Object result) {
+        this.result = result;
+    }
+
+    /**
+     * Returns the result of the task
+     * @return
+     */
+    public Object getResult() {
+        return this.result;
     }
 
     public interface OnFinishedListener {

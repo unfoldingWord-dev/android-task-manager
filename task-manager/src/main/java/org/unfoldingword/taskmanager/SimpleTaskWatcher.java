@@ -11,7 +11,7 @@ import android.util.Log;
  * This class performs a lot of the grunt work for handling managed tasks on the UI thread
  * The progress is displayed in a dialog
  */
-public class GenericWatcher implements ManagedTask.OnFinishedListener, ManagedTask.OnProgressListener, ManagedTask.OnStartListener, DialogInterface.OnCancelListener, ManagedTask.OnIdChangedListener {
+public class SimpleTaskWatcher implements ManagedTask.OnFinishedListener, ManagedTask.OnProgressListener, ManagedTask.OnStartListener, DialogInterface.OnCancelListener, ManagedTask.OnIdChangedListener {
 
     private final Context mContext;
     private final int mTitleRes;
@@ -27,7 +27,7 @@ public class GenericWatcher implements ManagedTask.OnFinishedListener, ManagedTa
      * @param context
      * @param titleRes
      */
-    public GenericWatcher(Context context, int titleRes) {
+    public SimpleTaskWatcher(Context context, int titleRes) {
         mContext = context;
         mTitleRes = titleRes;
         mIconRes = 0;
@@ -39,7 +39,7 @@ public class GenericWatcher implements ManagedTask.OnFinishedListener, ManagedTa
      * @param titleRes
      * @param iconRes
      */
-    public GenericWatcher(Context context, int titleRes, int iconRes) {
+    public SimpleTaskWatcher(Context context, int titleRes, int iconRes) {
         mContext = context;
         mTitleRes = titleRes;
         mIconRes = iconRes;
@@ -179,7 +179,7 @@ public class GenericWatcher implements ManagedTask.OnFinishedListener, ManagedTa
                         mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
                         if(mOnCanceledListener != null) {
                             mProgressDialog.setCancelable(true);
-                            mProgressDialog.setOnCancelListener(GenericWatcher.this);
+                            mProgressDialog.setOnCancelListener(SimpleTaskWatcher.this);
                         } else {
                             mProgressDialog.setCancelable(false);
                         }
