@@ -37,5 +37,14 @@ public int connectToTask(String taskId) {
 ```
 
 ##Creating Tasks
-In order to use the task manager you'll first need to create some tasks.
-A task must extend the abstract `ManagedTask` class.
+You can create your own tasks by excenting the `ManagedTask` class. Or you can create anonymous tasks directly
+
+```
+ManagedTask task = new ManagedTask() {
+    @Override
+    public void start() {
+        //... some code
+    }
+};
+TaskManager.addTask(task);
+```
