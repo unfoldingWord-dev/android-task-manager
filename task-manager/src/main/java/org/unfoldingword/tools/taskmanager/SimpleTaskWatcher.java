@@ -168,7 +168,7 @@ public class SimpleTaskWatcher implements ManagedTask.OnFinishedListener, Manage
             hand.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(task.isFinished()) {
+                    if(task.isFinished() || !mWatching) {
                         if(mProgressDialog != null) {
                             mProgressDialog.dismiss();
                         }
@@ -227,7 +227,9 @@ public class SimpleTaskWatcher implements ManagedTask.OnFinishedListener, Manage
             TaskManager.cancelTask(task);
             TaskManager.clearTask(task);
         }
-        mOnCanceledListener.onCanceled(task);
+        if(mOnCanceledListener != null) {
+            mOnCanceledListener.onCanceled(task);
+        }
     }
 
     /**
