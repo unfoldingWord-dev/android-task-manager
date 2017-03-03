@@ -387,6 +387,7 @@ public abstract class ManagedTask implements Runnable {
      */
     public final void destroy() {
         mIsStopped = true;
+        mFinished = true;
         mStartListeners.clear();
         mFinishListeners.clear();
         mProgressListeners.clear();

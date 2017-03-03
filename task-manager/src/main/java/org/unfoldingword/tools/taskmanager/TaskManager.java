@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This class manages multiple threads from a static singleton so you can easily keep track of
- * threads accross activities.
+ * threads across activities.
  */
 public class TaskManager {
 
@@ -53,7 +53,8 @@ public class TaskManager {
     }
 
     /**
-     * Adds a task to be executed
+     * Adds a task to be executed.
+     *
      * @param task the task to be executed
      * @return the id of the task process
      */
@@ -68,6 +69,7 @@ public class TaskManager {
     /**
      * Adds a task to be executed.
      * If the key is already in use the task will not be added.
+     *
      * @param task the task to be executed
      * @param key a key to retrieve the task at a later time
      * @return true if the key was added
@@ -178,7 +180,8 @@ public class TaskManager {
 
     /**
      * Removes a completed task from the manager.
-     * If the task has not finished it will not be removed
+     * The task must be finished or destroyed to be removed.
+     *
      * @param id the id of the task to be removed. Can be either a string or an int
      */
     public static void clearTask(Object id) {
@@ -195,8 +198,8 @@ public class TaskManager {
 
     /**
      * Removes a completed task from the manager.
-     * If the task has not finished it will not be removed.
-     * You should generally call this after a task has been finished in order to keep things clean.
+     * The task must be finished or destroyed to be removed.
+     *
      * @param task the task to be removed
      */
     public static void clearTask(ManagedTask task) {
@@ -226,6 +229,8 @@ public class TaskManager {
 
     /**
      * Removes a task from the manager
+     * The task must be finished or destroyed in order to be cleared.
+     *
      * @param id
      */
     private static boolean clearTask(Integer id) {
@@ -250,7 +255,9 @@ public class TaskManager {
     }
 
     /**
-     * Removes a task from the manager
+     * Removes a task from the manager.
+     * The task must be finished or destroyed to be removed.
+     *
      * @param key
      */
     private static void clearTask(String key) {

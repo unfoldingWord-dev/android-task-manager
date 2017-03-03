@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/unfoldingWord-dev/android-task-manager'
     gitUrl = 'https://github.com/unfoldingWord-dev/android-task-manager.git'
 
-    libraryVersion = '1.5.1'
+    libraryVersion = '1.5.2'
 
     developerId = 'neutrinog'
     developerName = 'Joel Lonbeck'
@@ -32,8 +32,8 @@ android {
 
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 7
-        versionName "1.5.1"
+        versionCode 8
+        versionName "1.5.2"
     }
     buildTypes {
         release {
