@@ -235,7 +235,7 @@ public class TaskManager {
      */
     private static boolean clearTask(Integer id) {
         if(id != null) {
-            if (mTaskMap.containsKey(id) && (mTaskMap.get(id).isFinished())) {
+            if (mTaskMap.containsKey(id) && (mTaskMap.get(id).isFinished() || mTaskMap.get(id).isCanceled())) {
                 mTaskMap.remove(id);
                 // clear group mapping
                 List<String> groups = mTaskGroupsMap.get(id);
